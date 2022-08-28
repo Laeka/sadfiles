@@ -1,3 +1,4 @@
+vim.g.loaded_matchparen = 1
 --options
 local options = {
   fileencoding = "utf-8", -- the encoding written to a file
@@ -7,11 +8,11 @@ local options = {
   backup = false, --create a backup file
   cmdheight = 2, --more space in the neovim command for display messages
   expandtab = true, --convert tabs to spaces
-  scrolloff = 8, --number to show below the cursor :Check need to test
+  scrolloff = 10, --number to show below the cursor :Check need to test
   ignorecase = true, -- Case insensitive searching UNLESS /C or capital in search
   breakindent = true, --:Check need test
   shiftwidth = 2, --the number of spaces inserted for each indentation
-  wrap = false, -- No Wrap lines
+  wrap = true, -- No Wrap lines
   clipboard = "unnamedplus", -- allows neovim to access the system clipboard
   completeopt = { "menuone", "noselect" }, -- just for completeopt
   -- conceallevel = 0 :CHECK `` visible for markdown files = need test
@@ -25,7 +26,7 @@ local options = {
   swapfile = false, --create swap files
   timeoutlen = 1000, --time to wait for a mapped sequence to completeopt
   undofile = true, --enable persistent undofile
-  updatetime = 100, --faster competion
+  updatetime = 1000, --faster competion
   writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
   tabstop = 2, --insert 2 spaces for a tabs
   --cursorline = true, --highlight the cursor line
@@ -34,13 +35,11 @@ local options = {
   numberwidth = 4, --set number column width to 2
   signcolumn = "yes:1", -- always show the signcolumn, otherwise it would shift the text each time
   sidescrolloff = 8,
-  inccommand = "nosplit",
-  wildmode = "longest,full",
+  inccommand = "split",
   lazyredraw = true, --something with screen wrap
   showmatch = true, --jump to match bracker when is inserted only happen if the match can be seen on the screen
   softtabstop = 0, -- number of space tab counts while editing
   laststatus = 3, --max status lines for windows
-  -- shada = [['20, <50, s10, /100]], --register of the files
   hidden = true, --buffer becomes hidden when it is abandones
   joinspaces = false, --:CHECK maybe deprecated
   previewheight = 5, --default height for a preview window
@@ -59,20 +58,40 @@ local options = {
 --[[ vim.opt.listchars:append "space:⋅" ]]
 --[[ vim.opt.listchars:append "eol:↴" ]]
 
+local opt = vim.opt
+
+-- Cool floating window popup menu for completion on command line
+opt.pumblend = 17
+opt.wildmode = "longest:full"
+opt.wildoptions = "pum"
+
+opt.belloff = "all" -- Just turn the dang bell off
 vim.opt.path:append { "**" } -- Finding files - Search down into subfolders
 vim.opt.wildignore:append { "*.o", "*~", "*/node_modules/*" }
 vim.opt.shortmess:append "c"
+vim.opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
+opt.shada = { "!", "'1000", "<50", "s10", "h" }
+opt.formatoptions = opt.formatoptions
+  - "a" -- Auto formatting is BAD.
+  - "t" -- Don't auto format my code. I got linters for that.
+  + "c" -- In general, I like it when comments respect textwidth
+  + "q" -- Allow formatting comments w/ gq
+  - "o" -- O and o, don't continue comments
+  - "r" -- But do continue when pressing enter.
+  + "n" -- Indent past the formatlistpat, not underneath it.
+  + "j" -- Auto-remove comments if possible.
+  - "2" -- I'm not in gradeschool anymore
 
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
---vim scripts
-vim.cmd "set whichwrap+=<,>,[,],h,l"
-vim.cmd [[set iskeyword+=-]]
---STOP COMMENTING NEW LINE
 vim.cmd "autocmd BufEnter * set formatoptions-=cro"
 vim.cmd "autocmd BufEnter * setlocal formatoptions-=cro"
+
+--vim scripts
+vim.cmd "set whichwrap+=<,>,[,],h,l"
+--[[ vim.cmd [[set iskeyword+=-]]
 
 -- Undercurl:Check
 --vim.cmd [[let &t_Cs = "\e[4:3m"]]

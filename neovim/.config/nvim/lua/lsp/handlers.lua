@@ -1,4 +1,4 @@
-local M = {}
+M = {}
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
@@ -27,7 +27,7 @@ M.setup = function()
       focusable = true,
       style = "minimal",
       border = "rounded",
-      source = "if_mane", --or always
+      source = "if_many", --or always
       header = "",
       prefix = "",
     },
@@ -54,32 +54,23 @@ local function lsp_highlight_document(client)
   -- end
 end
 
-local function attach_navic(client, bufnr)
-  vim.g.navic_silence = false
-  local status_ok, navic = pcall(require, "nvim-navic")
-  if not status_ok then return end
-  navic.attach(client, bufnr)
-end
+local buf_keymap = vim.api.nvim_buf_set_keymap
+local keymap_opts = { noremap = true, silent = true }
 
 local function lsp_keymaps(bufnr)
-  local opts = { noremap = true, silent = true }
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>Telescope lsp_declarations<CR>", opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gI", "<cmd>Telescope lsp_implementations<CR>", opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-  --vim.cmd [[ command! Format execute 'lua vim.lsp.buf.format({ async = true })' ]]
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  --vim.api.nvim_buf_set_keymap(bufnr, "n", "<M-f>", "<cmd>Format<cr>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<M-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+  buf_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", keymap_opts)
+  buf_keymap(bufnr, "n", "gd", '<cmd>lua require"telescope.builtin".lsp_definitions()<CR>', keymap_opts)
+  buf_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", keymap_opts)
+  buf_keymap(bufnr, "n", "gi", '<cmd>lua require"telescope.builtin".lsp_implementations()<CR>', keymap_opts)
+  buf_keymap(bufnr, "n", "gS", "<cmd>lua vim.lsp.buf.signature_help()<CR>", keymap_opts)
+  buf_keymap(bufnr, "n", "gtd", "<cmd>lua vim.lsp.buf.type_definition()<CR>", keymap_opts)
+  buf_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", keymap_opts)
+  buf_keymap(bufnr, "n", "gr", '<cmd>lua require"telescope.builtin".lsp_references()<CR>', keymap_opts)
+  buf_keymap(bufnr, "n", "gA", "<cmd>lua vim.lsp.buf.code_action()<CR>", keymap_opts)
+  buf_keymap(bufnr, "v", "gA", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", keymap_opts)
+  buf_keymap(bufnr, "n", "]e", '<cmd>lua vim.diagnostic.goto_next { float = {scope = "line"} }<cr>', keymap_opts)
+  buf_keymap(bufnr, "n", "[e", '<cmd>lua vim.diagnostic.goto_prev { float = {scope = "line"} }<cr>', keymap_opts)
+  buf_keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting() <cr>", keymap_opts)
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 
@@ -87,7 +78,6 @@ M.on_attach = function(client, bufnr)
   if client.name == "tsserver" then client.resolved_capabilities.document_formatting = false end
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
-  attach_navic(client, bufnr)
   --if client.name == "tsserver" then require("lsp-inlayhints").on_attach(bufnr, client) end
 end
 

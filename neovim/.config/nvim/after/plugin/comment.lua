@@ -17,4 +17,14 @@ comment.setup {
       location = location,
     }
   end,
+  -- LHS of operator-pending mapping in NORMAL + VISUAL mode
+  opleader = {
+    -- line-comment keymap
+    line = "gc",
+    -- block-comment keymap
+    block = "gb",
+  },
 }
+
+local comment_ft = require "Comment.ft"
+comment_ft.set("lua", { "--%s", "--[[%s]]" })

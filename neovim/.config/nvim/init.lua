@@ -28,6 +28,8 @@ for i = 1, 10 do
   g["loaded_" .. disabled_built_ins[i]] = 1
 end
 
+cmd [[colorscheme nazgul]]
+
 -- Autocommands
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup

@@ -9,20 +9,32 @@ if not kind_status_ok then return end
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
-local check_backspace = function()
-  local col = vim.fn.col "." - 1
-  return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
 end
 
 cmp.setup {
+  completion = { completeopt = "menu,menuone,noinsert" },
+  sorting = {
+    comparators = {
+      -- The built-in comparators:
+      cmp.config.compare.offset,
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      --require('cmp-under-comparator').under,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
+  },
   snippet = {
     expand = function(args) luasnip.lsp_expand(args.body) end,
   },
   mapping = {
-    ["<C-k>"] = cmp.mapping.select_prev_item(),
-    ["<C-j>"] = cmp.mapping.select_next_item(),
-    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
     ["<C-e>"] = cmp.mapping {
@@ -39,7 +51,7 @@ cmp.setup {
         luasnip.expand()
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
-      elseif check_backspace() then
+      elseif has_words_before() then
         fallback()
       else
         fallback()
@@ -69,22 +81,24 @@ cmp.setup {
       --the function below will be called before any modifications from lspkind
       before = function(entry, vim_item)
         vim_item.menu = ({
+          nvim_sig = "[SIG]",
           nvim_lsp = "[LSP]",
-          nvim_lua = "[Lua]",
           luasnip = "[Snippet]",
-          buffer = "[Buffer]",
+          nvim_lua = "[Lua]",
           path = "[Path]",
+          buffer = "[Buffer]",
         })[entry.source.name]
         return vim_item
       end,
     },
   },
   sources = cmp.config.sources {
+    { name = "nvim_lsp_signature_help" },
     { name = "nvim_lsp" },
-    { name = "nvim_lua" },
     { name = "luasnip" },
-    { name = "buffer" },
+    { name = "nvim_lua" },
     { name = "path" },
+    { name = "buffer" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
@@ -100,12 +114,3 @@ cmp.setup {
     native_menu = false,
   },
 }
-
-vim.cmd [[
-  set completeopt=menuone,noinsert,noselect
-  highlight! default link CmpItemKind CmpItemMenuDefault
-]]
-
--- " Use <Tab> and <S-Tab> to navigate through popup menu
--- inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
--- inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"

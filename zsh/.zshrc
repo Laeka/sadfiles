@@ -133,6 +133,18 @@ export EDITOR=vim
   alias ll="ls -l"
   alias lla="ll -A"
   alias stylan="stylua --glob '**/*.lua' -- ~/.config/nvim"
+#alias to manage .dotfiles :TODO need better way to do this maybe zsh functions
+  alias kittyrm="rm -rf ~/.dotfiles/kitty/.config/kitty/"
+  alias kittycp="cp -r ~/.config/kitty/ ~/.dotfiles/kitty/.config/kitty/"
+  alias neofetchrm="rm -rf ~/.dotfiles/neofetch/.config/neofetch/"
+  alias neofetchcp="cp -r ~/.config/neofetch/ ~/.dotfiles/neofetch/.config/neofetch/"
+  alias nvimrm="rm -rf ~/.dotfiles/neovim/.config/nvim/"
+  alias nvimcp="cp -r ~/.config/nvim/ ~/.dotfiles/neovim/.config/nvim/"
+  alias zshrm="rm -rf ~/.dotfiles/zsh/.zshrc"
+  alias zshcp="cp -r ~/.zshrc ~/.dotfiles/zsh/.zshrc"
+  alias dotrm="kittyrm && neofetchrm && nvimrm && zshrm"
+  alias dotcp="kittycp && neofetchcp && nvimcp && zshcp"
+  
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

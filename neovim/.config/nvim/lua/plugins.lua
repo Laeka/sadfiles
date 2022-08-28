@@ -48,18 +48,18 @@ packer.startup(function(use)
   use "nvim-lua/plenary.nvim" -- Common utilities
   use "nvim-lualine/lualine.nvim" -- Statusline
   use "christianchiarulli/lua-dev.nvim"
-  use "windwp/nvim-autopairs"
+  use "windwp/nvim-autopairs" --close autopairs
   --use "windwp/nvim-ts-autotag"
   use "kyazdani42/nvim-web-devicons" -- File icons
-  use "kyazdani42/nvim-tree.lua" --folders files show like vscode
-  use "akinsho/bufferline.nvim" --better way to manage buffers
   use "moll/vim-bbye"
   use "akinsho/toggleterm.nvim" -- open terminal
-  use "dstein64/vim-startuptime" --info about the startuptime
+  use { "dstein64/vim-startuptime", cmd = "StartupTime", config = [[vim.g.startuptime_tries = 10]] } --info about the startuptime
   use "mhinz/vim-sayonara" --commands to help with closing the buffer
   use { "tversteeg/registers.nvim", keys = { { "n", '"' }, { "i", "<c-r>" } } } --registers popup minimalist
   use "romainl/vim-cool" --desactive highlight search when stop searching
   use "wellle/targets.vim" --manage text objects
+  use "justinmk/vim-dirvish" -- simple path nav
+  use "b0o/incline.nvim" --floating statusline for windows
 
   -- Movement
   use { "chaoren/vim-wordmotion", "justinmk/vim-sneak" } -- workmotion: camelcase nav, sneak: find two letters
@@ -74,8 +74,8 @@ packer.startup(function(use)
     config = function()
       require("indent_blankline").setup {
         --[[ space_char_blankline = " ", ]]
-        show_current_context = true,
-        show_current_context_start = true,
+        --[[ show_current_context = true, ]]
+        --[[ show_current_context_start = true, ]]
       }
     end,
   }
@@ -85,35 +85,75 @@ packer.startup(function(use)
     { "andymass/vim-matchup", setup = [[require('config.matchup')]], event = "User ActuallyEditing" }, -- %
   }
 
+  --Comments
   use {
     "numToStr/Comment.nvim",
     event = "User ActuallyEditing",
     config = function() require("Comment").setup {} end,
   }
 
-  --themes and colorschemas
+  -- Project Management/Sessions
   use {
-    "svrana/neosolarized.nvim", --theme
-    requires = { "tjdevries/colorbuddy.nvim" },
+    "dhruvasagar/vim-prosession", --:CHECK create and switch between sessios
+    after = "vim-obsession",
+    requires = { { "tpope/vim-obsession", cmd = "Prosession" } },
+    config = [[require('config.prosession')]],
   }
-  use "norcalli/nvim-colorizer.lua"
+
+  -- Undo tree
+  use {
+    "mbbill/undotree", --nav and view past undos
+    cmd = "UndotreeToggle",
+    config = [[vim.g.undotree_SetFocusWhenToggle = 1]],
+  }
+
+  --themes and colorschemas
+  use "wbthomason/vim-nazgul" --theme
+  --use 'hardselius/warlock'
+  --use 'arzg/vim-substrata'
+  --use 'sainnhe/gruvbox-material'
+  --use 'RRethy/nvim-base16'
+  use {
+    "norcalli/nvim-colorizer.lua",
+    ft = { "css", "javascript", "vim", "html" },
+    config = [[require('colorizer').setup {'css', 'javascript', 'vim', 'html'}]],
+  } --see the colors in code
 
   --cmp plug::autocomplete language
-  use "hrsh7th/nvim-cmp" -- Completion
-  use "hrsh7th/cmp-buffer" -- nvim-cmp source for buffer words
-  use "hrsh7th/cmp-nvim-lsp" -- nvim-cmp source for neovim's built-in LSP
-  use "hrsh7th/cmp-path"
-  use "hrsh7th/cmp-nvim-lua"
-  use "saadparwaiz1/cmp_luasnip"
-  --use "hrsh7th/cmp-cmdline"
   use "onsails/lspkind-nvim" -- vscode-like pictograms
+  use {
+    "hrsh7th/nvim-cmp",
+    requires = {
+      { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+      "hrsh7th/cmp-nvim-lsp",
+      { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
+      { "hrsh7th/cmp-path", after = "nvim-cmp" },
+      { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+      { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
+      --'lukas-reineke/cmp-under-comparator',
+      { "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" },
+      { "onsails/lspkind-nvim", after = "nvim-cmp" },
+    },
+    config = [[require('config.cmp')]],
+    event = "InsertEnter",
+    after = "LuaSnip",
+  }
 
   --snippets
-  use "l3MON4D3/LuaSnip" --snippet
+  use { "L3MON4D3/LuaSnip", event = "InsertEnter" } --snippet
   use "rafamadriz/friendly-snippets"
 
   --lsp::language helper
-  use "neovim/nvim-lspconfig"
+  use {
+    "neovim/nvim-lspconfig",
+    { "nvim-lua/lsp-status.nvim", disable = true },
+    "folke/trouble.nvim", --:TODO maybe conf, need keymaps -- list of warns errors info
+    "ray-x/lsp_signature.nvim",
+    --[[ { ]]
+    --[[   'kosayoda/nvim-lightbulb', ]]
+    --[[   requires = 'antoinemadec/FixCursorHold.nvim', ]]
+    --[[ }, ]]
+  }
   use "williamboman/mason.nvim" -- help you to install others lsp servers
   use "williamboman/mason-lspconfig.nvim"
   --  use "glepnir/lspsaga.nvim" -- LSP UIs
@@ -121,9 +161,8 @@ packer.startup(function(use)
   use "rrethy/vim-illuminate" --illuminate all same words
   --use "SmiteshP/nvim-navic" -- show bard like breackcumbs
   --use "lvimuser/lsp-inlayhints.nvim" --lines the same word
-  use "b0o/SchemaStore.nvim" -- schemas for json
-  use "ray-x/lsp_signature.nvim" --signature to complete the code
-  use "jose-elias-alvarez/null-ls.nvim" --formating helper
+  --use "b0o/SchemaStore.nvim" -- schemas for json
+  use { "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } } --formating helper
 
   --telescope
   use {
@@ -168,18 +207,67 @@ packer.startup(function(use)
   --treesiter
   use {
     "nvim-treesitter/nvim-treesitter",
+    requires = {
+      "nvim-treesitter/nvim-treesitter-refactor", --refactor same words
+      "RRethy/nvim-treesitter-textsubjects", --visual mode take subjects
+      "p00f/nvim-ts-rainbow", --parentesis rainbow
+      "joosepAlviste/nvim-ts-context-commentstring", --treesiter comment
+      "RRethy/nvim-treesitter-endwise", --put end
+    },
     run = ":TSUpdate",
   }
-  use "p00f/nvim-ts-rainbow" --parentesis rainbow
-  use "joosepAlviste/nvim-ts-context-commentstring" --treesiter comment
   --use "nvim-treesitter/nvim-treesitter-textobjects" --:Check
   -- use("RRethy/nvim-treesitter-textsubjects")
   --use "nvim-treesitter/nvim-treesitter-context" --treesiter context languages
   --use "drybalka/tree-climber.nvim" --tree siter navigation easy
 
   --git
-  use "dinhhuy258/git.nvim" -- For git blame & browse
-  use "lewis6991/gitsigns.nvim"
+  use {
+    {
+      "lewis6991/gitsigns.nvim", --:CHECK keymaps and conf -git decorations
+      requires = { "nvim-lua/plenary.nvim" },
+      config = [[require('config.gitsigns')]],
+      event = "User ActuallyEditing",
+    },
+    { "TimUntersberger/neogit", cmd = "Neogit", config = [[require('config.neogit')]] }, --:Check keymaps and conf - git terminal
+  }
+
+  -- Buffer management
+  use {
+    "akinsho/bufferline.nvim", --improve buffer management
+    requires = "kyazdani42/nvim-web-devicons",
+    config = [[require('config.bufferline')]],
+    event = "User ActuallyEditing",
+  }
+
+  -- Debugger
+  --use {
+  --{
+  --'mfussenegger/nvim-dap',
+  -- setup = [[require('config.dap_setup')]],
+  -- config = [[require('config.dap')]],
+  -- requires = 'jbyuki/one-small-step-for-vimkind',
+  -- wants = 'one-small-step-for-vimkind',
+  -- cmd = { 'BreakpointToggle', 'Debug', 'DapREPL' },
+  -- },
+  -- {
+  --  'rcarriga/nvim-dap-ui',
+  --  requires = 'nvim-dap',
+  -- wants = 'nvim-dap',
+  --  after = 'nvim-dap',
+  --  config = function()
+  --    require('dapui').setup()
+  --  end,
+  -- },
+  -- }
+
+  -- REPLs
+  --[[ use { ]]
+  --[[   "hkupty/iron.nvim",  --real time terminal to auto execute code ]]
+  --   setup = [[vim.g.iron_map_defaults = 0]],
+  --   config = [[require('config.iron')]],
+  --[[   cmd = { "IronRepl", "IronSend", "IronReplHere" }, ]]
+  --[[ } ]]
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

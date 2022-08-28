@@ -10,7 +10,7 @@ configs.setup {
     disable = { "" }, -- list of language that will be disabled
     additional_vim_regex_highlighting = true,
   },
-  indent = { enable = true, disable = { "yaml" } },
+  indent = { enable = false, disable = { "yaml" } },
   context_commentstring = {
     enable = true,
     enable_autocmd = false,
@@ -23,4 +23,17 @@ configs.setup {
     -- colors = {}, -- table of hex strings
     -- termcolors = {} -- table of colour name strings
   },
+  refactor = {
+    smart_rename = { enable = true, keymaps = { smart_rename = "grr" } },
+    highlight_definitions = { enable = true },
+  },
+  textsubjects = {
+    enable = true,
+    keymaps = {
+      ["."] = "textsubjects-smart", --comments, consecutive line comments, function calls, function definitions, class definitions, loops, if statements, return values, arguments.
+      [";"] = "textsubjects-container-outer", --Classes, structs, functions, methods.
+      ["i;"] = "textsubjects-container-inner", --Inside Classes, structs, functions, methods.
+    },
+  },
+  endwise = { enable = true },
 }

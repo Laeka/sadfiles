@@ -50,6 +50,9 @@ keymap("n", "<leader>w", "<cmd>w<cr>", opts)
 --[[ map('n', '<c-Left>', '<cmd>tabpre<cr>', silent) ]]
 --[[ map('n', '<c-Right>', '<cmd>tabnext<cr>', silent) ]]
 
+-- Version Control : git
+keymap("n", "gs", "<cmd>Neogit<cr>", opts)
+
 -- Insert --
 -- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)
