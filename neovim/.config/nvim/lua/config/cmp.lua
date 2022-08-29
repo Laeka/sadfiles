@@ -1,3 +1,15 @@
+local types = require "cmp.types"
+local str = require "cmp.utils.str"
+
+-- completion maps (not cmp) --
+-- line completion - use more!
+-- inoremap <C-l> <C-x><C-l>
+vim.api.nvim_set_keymap("i", "<c-l>", "<c-x><c-l>", { noremap = true })
+-- Vim command-line completion
+-- inoremap <C-v> <C-x><C-v>
+vim.api.nvim_set_keymap("i", "<c-v>", "<c-x><c-v>", { noremap = true })
+-- end non-cmp completion maps --
+
 local status, cmp = pcall(require, "cmp")
 if not status then return end
 
@@ -82,35 +94,55 @@ cmp.setup {
       before = function(entry, vim_item)
         vim_item.menu = ({
           nvim_sig = "[SIG]",
+          luasnip = "[Lsnippet]",
           nvim_lsp = "[LSP]",
-          luasnip = "[Snippet]",
           nvim_lua = "[Lua]",
           path = "[Path]",
           buffer = "[Buffer]",
         })[entry.source.name]
+
+        -- Get the full snippet (and only keep first line)
+        local word = entry:get_insert_text()
+        if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
+          word = vim.lsp.util.parse_snippet(word)
+        end
+        word = str.oneline(word)
+        if
+          entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet
+          and string.sub(vim_item.abbr, -1, -1) == "~"
+        then
+          word = word .. "~"
+        end
+        vim_item.abbr = word
+
         return vim_item
       end,
     },
   },
   sources = cmp.config.sources {
     { name = "nvim_lsp_signature_help" },
-    { name = "nvim_lsp" },
     { name = "luasnip" },
+    { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "path" },
-    { name = "buffer" },
+    {
+      name = "buffer",
+      option = {
+        get_bufnrs = function() return vim.api.nvim_list_bufs() end,
+      },
+      { name = "spell" },
+    },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
   },
   window = {
-    documentation = {
-      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-    },
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   experimental = {
-    ghost_text = false,
+    ghost_text = true,
     native_menu = false,
   },
 }

@@ -133,6 +133,13 @@ export EDITOR=vim
   alias ll="ls -l"
   alias lla="ll -A"
   alias stylan="stylua --glob '**/*.lua' -- ~/.config/nvim"
+#GIT 
+  alias gdotc='git -C ~/dotfiles commit -a -m'
+  alias gdots='git -C ~/dotfiles status'
+  alias gijs='git init && echo "node_modules" >> .gitignore'
+  alias ghweb='gh repo view --web'
+  alias gu='gitui'
+  alias ng='npm init -y && git init && echo "node_modules" >> .gitignore'
 #alias to manage .dotfiles :TODO need better way to do this maybe zsh functions
   alias kittyrm="rm -rf ~/.dotfiles/kitty/.config/kitty/"
   alias kittycp="cp -r ~/.config/kitty/ ~/.dotfiles/kitty/.config/kitty/"

@@ -86,11 +86,12 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.cmd "autocmd BufEnter * set formatoptions-=cro"
-vim.cmd "autocmd BufEnter * setlocal formatoptions-=cro"
+--[[ vim.cmd "autocmd BufEnter * set formatoptions-=cro"
+vim.cmd "autocmd BufEnter * setlocal formatoptions-=cro" ]]
 
 --vim scripts
 vim.cmd "set whichwrap+=<,>,[,],h,l"
+vim.cmd [[autocmd FileType help,qf,fugitive,fugitiveblame,netrw nnoremap <buffer><silent> q :close<CR>]]
 --[[ vim.cmd [[set iskeyword+=-]]
 
 -- Undercurl:Check

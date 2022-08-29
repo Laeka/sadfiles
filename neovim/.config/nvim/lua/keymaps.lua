@@ -84,3 +84,26 @@ keymap("n", "<leader>n", ":NvimTreeToggle<cr>", opts)
 keymap("n", "<F4>", "<cmd>Telescope resume<cr>", opts)
 keymap("n", "<F5>", "<cmd>Telescope commands<CR>", opts)
 keymap("n", "<leader>/", ":execute 'Telescope live_grep default_text=' . expand('<cword>')<CR>", opts)
+-- toggle bool word - true/false
+keymap(
+  "n",
+  "gtb",
+  ":lua require('funcs').toggle_bool({word=vim.fn.expand('<cword>')})<CR>",
+  { noremap = true, silent = true }
+)
+keymap("v", "<leader>t", [[<Cmd>lua require'funcs'.create_todoist_task()<CR>]], { noremap = false })
+-- clear nvim-notify notifications history
+keymap("n", "<leader>cn", ":lua require('funcs').clear_notification_history()<CR>", { noremap = true, silent = true })
+keymap("n", "<leader>ti", ":lua require('funcs').notify_current_datetime()<CR>", { noremap = true, silent = true })
+keymap("n", "<leader>gf", ":vs <cfile><CR>", { noremap = false, silent = true })
+keymap("n", "<leader>t", ":TSHighlightCapturesUnderCursor<CR>", { noremap = true, silent = true })
+-- toggle neoclip - https://github.com/AckslD/nvim-neoclip.lua#startstop
+keymap("n", ",tn", [[<Cmd>lua require('neoclip').toggle()<CR>]], { noremap = true, silent = true })
+-- open new Neovim Terminal in vsplit or split
+keymap("n", "<leader>tv", [[<Cmd>vsp <bar>terminal<CR>]], { noremap = false, silent = true })
+-- open short terminal at the bottom of the buffer
+keymap("n", "<leader>ts", [[<Cmd>11sp <bar>terminal<CR>]], { noremap = false, silent = true })
+-- open lazygit in vert split - custom lazygit config uses ctrl-x as menu close
+--keymap("n", "<space>lg", [[<Cmd>135vsp <bar>terminal lazygit<CR>]], { noremap = true, silent = true })
+-- yank all in buffer
+keymap("n", "<leader>a", ":%y<cr>", { noremap = false, silent = true })

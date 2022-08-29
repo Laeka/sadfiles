@@ -49,7 +49,6 @@ packer.startup(function(use)
   use "nvim-lualine/lualine.nvim" -- Statusline
   use "christianchiarulli/lua-dev.nvim"
   use "windwp/nvim-autopairs" --close autopairs
-  --use "windwp/nvim-ts-autotag"
   use "kyazdani42/nvim-web-devicons" -- File icons
   use "moll/vim-bbye"
   use "akinsho/toggleterm.nvim" -- open terminal
@@ -60,22 +59,62 @@ packer.startup(function(use)
   use "wellle/targets.vim" --manage text objects
   use "justinmk/vim-dirvish" -- simple path nav
   use "b0o/incline.nvim" --floating statusline for windows
+  use {
+    "AckslD/nvim-neoclip.lua", -- clipboard toggle
+    config = function() require("neoclip").setup() end,
+  }
+  use "stevearc/dressing.nvim" --pretty ui
+  use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end,
+  }
+  --[[ use "windwp/nvim-ts-autotag"
+  use "tpope/vim-abolish" :CHECK
+  use "tpope/vim-repeat" :CHECK
+  use "tpope/vim-eunuch" :CHECK
+  use "editorconfig/editorconfig-vim" :CHECK
+  use { "mogelbrod/vim-jsonpath", cmd = "JsonPath" } :CHECK
+  use {
+    "luukvbaal/stabilize.nvim",
+  } 
+  use "moll/vim-node" : nodejs helper :CHECK
+  ]]
+  --[[ 
+  use {
+    "ziontee113/icon-picker.nvim", :CHECK
+    cmd = "PickEverything",
+    config = function() require "icon-picker" end,
+  } ]]
 
   -- Movement
   use { "chaoren/vim-wordmotion", "justinmk/vim-sneak" } -- workmotion: camelcase nav, sneak: find two letters
 
   -- Quickfix
-  --[[ use { 'Olical/vim-enmasse', cmd = 'EnMasse' } -- check warns and errors for js =need jshint ]]
   use "kevinhwang91/nvim-bqf" --:Check maybe can work with telescope
+  --[[ use { 'Olical/vim-enmasse', cmd = 'EnMasse' } -- check warns and errors for js =need jshint ]]
 
   -- Indentation tracking
   use {
     "lukas-reineke/indent-blankline.nvim", --lines you see in the right with colors
     config = function()
       require("indent_blankline").setup {
-        --[[ space_char_blankline = " ", ]]
-        --[[ show_current_context = true, ]]
-        --[[ show_current_context_start = true, ]]
+        space_char_blankline = " ",
+        buftype_exclude = { "terminal", "help", "telescope" },
+        show_current_context = true,
+        use_treesitter = true,
+        enabled = true,
+        -- in theme
+        char_highlight_list = {
+          "IndentBlanklineIndent1",
+          "IndentBlanklineIndent2",
+        },
       }
     end,
   }
@@ -109,15 +148,16 @@ packer.startup(function(use)
 
   --themes and colorschemas
   use "wbthomason/vim-nazgul" --theme
-  --use 'hardselius/warlock'
-  --use 'arzg/vim-substrata'
-  --use 'sainnhe/gruvbox-material'
-  --use 'RRethy/nvim-base16'
   use {
     "norcalli/nvim-colorizer.lua",
     ft = { "css", "javascript", "vim", "html" },
     config = [[require('colorizer').setup {'css', 'javascript', 'vim', 'html'}]],
   } --see the colors in code
+  use { "Pocco81/HighStr.nvim", cmd = "HSHighlight" }
+  --[[ use 'hardselius/warlock'
+  use 'arzg/vim-substrata'
+  use 'sainnhe/gruvbox-material'
+  use 'RRethy/nvim-base16' ]]
 
   --cmp plug::autocomplete language
   use "onsails/lspkind-nvim" -- vscode-like pictograms
@@ -130,9 +170,9 @@ packer.startup(function(use)
       { "hrsh7th/cmp-path", after = "nvim-cmp" },
       { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
       { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-      --'lukas-reineke/cmp-under-comparator',
       { "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" },
       { "onsails/lspkind-nvim", after = "nvim-cmp" },
+      --'lukas-reineke/cmp-under-comparator',
     },
     config = [[require('config.cmp')]],
     event = "InsertEnter",
@@ -149,20 +189,16 @@ packer.startup(function(use)
     { "nvim-lua/lsp-status.nvim", disable = true },
     "folke/trouble.nvim", --:TODO maybe conf, need keymaps -- list of warns errors info
     "ray-x/lsp_signature.nvim",
-    --[[ { ]]
-    --[[   'kosayoda/nvim-lightbulb', ]]
-    --[[   requires = 'antoinemadec/FixCursorHold.nvim', ]]
-    --[[ }, ]]
   }
   use "williamboman/mason.nvim" -- help you to install others lsp servers
   use "williamboman/mason-lspconfig.nvim"
-  --  use "glepnir/lspsaga.nvim" -- LSP UIs
   use "https://git.sr.ht/~whynothugo/lsp_lines.nvim" --lines show warns error info
   use "rrethy/vim-illuminate" --illuminate all same words
-  --use "SmiteshP/nvim-navic" -- show bard like breackcumbs
-  --use "lvimuser/lsp-inlayhints.nvim" --lines the same word
-  --use "b0o/SchemaStore.nvim" -- schemas for json
   use { "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } } --formating helper
+  --[[ use "glepnir/lspsaga.nvim" -- LSP UIs
+  use "SmiteshP/nvim-navic" -- show bard like breackcumbs
+  use "lvimuser/lsp-inlayhints.nvim" --lines the same word
+  use "b0o/SchemaStore.nvim" -- schemas for json ]]
 
   --telescope
   use {
@@ -174,6 +210,11 @@ packer.startup(function(use)
         "telescope-frecency.nvim",
         "telescope-fzf-native.nvim",
         "nvim-telescope/telescope-ui-select.nvim",
+        "dhruvmanila/telescope-bookmarks.nvim",
+        "nvim-telescope/telescope-github.nvim",
+        "cljoly/telescope-repo.nvim",
+        "nvim-telescope/telescope-file-browser.nvim",
+        "LinArcX/telescope-command-palette.nvim",
       },
       wants = {
         "popup.nvim",
@@ -197,13 +238,6 @@ packer.startup(function(use)
     },
   }
 
-  --fzf
-  --use {
-  --"ibhagwan/fzf-lua",
-  -- optional for icon support
-  --requires = { "kyazdani42/nvim-web-devicons" },
-  --}
-
   --treesiter
   use {
     "nvim-treesitter/nvim-treesitter",
@@ -213,13 +247,13 @@ packer.startup(function(use)
       "p00f/nvim-ts-rainbow", --parentesis rainbow
       "joosepAlviste/nvim-ts-context-commentstring", --treesiter comment
       "RRethy/nvim-treesitter-endwise", --put end
+      "nvim-treesitter/playground",
+      "dhruvmanila/telescope-bookmarks.nvim", -- search edge
     },
     run = ":TSUpdate",
   }
-  --use "nvim-treesitter/nvim-treesitter-textobjects" --:Check
-  -- use("RRethy/nvim-treesitter-textsubjects")
-  --use "nvim-treesitter/nvim-treesitter-context" --treesiter context languages
-  --use "drybalka/tree-climber.nvim" --tree siter navigation easy
+  --[[ use "nvim-treesitter/nvim-treesitter-context" --treesiter context languages
+  use "drybalka/tree-climber.nvim" --tree siter navigation easy ]]
 
   --git
   use {
@@ -238,6 +272,12 @@ packer.startup(function(use)
     requires = "kyazdani42/nvim-web-devicons",
     config = [[require('config.bufferline')]],
     event = "User ActuallyEditing",
+  }
+
+  -- sitting
+  use {
+    "lewis6991/spellsitter.nvim",
+    config = function() require("spellsitter").setup() end,
   }
 
   -- Debugger
