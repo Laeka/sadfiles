@@ -28,7 +28,9 @@ for i = 1, 10 do
   g["loaded_" .. disabled_built_ins[i]] = 1
 end
 
-cmd [[colorscheme nazgul]]
+-- cmd [[colorscheme nazgul]]
+--[[ cmd "set fillchars+=vert:│"
+cmd [[colorscheme codesmell_dark ]]
 
 -- Autocommands
 local autocmd = vim.api.nvim_create_autocmd

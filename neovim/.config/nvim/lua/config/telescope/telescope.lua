@@ -69,7 +69,7 @@ telescope.setup {
     winblend = 4,
   },
   extensions = {
-    frecency = { workspaces = { exo = "/home/laekagg/.config/nvim/" } },
+    frecency = { workspaces = { exo = "/home/laekagg/PROG/" } },
     fzf = {
       fuzzy = true,
       override_generic_sorter = true,
@@ -77,7 +77,7 @@ telescope.setup {
       case_mode = "smart_case",
     },
     ["ui-select"] = {
-      require("telescope.themes").get_cursor(),
+      require("telescope.themes").get_dropdown(),
     },
     bookmarks = {
       selected_browser = "edge",
@@ -200,11 +200,11 @@ end
 -- search Neovim related todos
 function M.search_todos()
   require("telescope.builtin").grep_string {
-    prompt_title = " Search :TODO",
+    prompt_title = " Search TODO",
     prompt_prefix = " ",
-    results_title = "Neovim :TODO",
+    results_title = "Neovim TODO",
     path_display = { "smart" },
-    search = ":TODO",
+    search = "TODO: ",
   }
 end
 
@@ -231,9 +231,7 @@ M.project_files = function()
     ".git/",
     "Dropbox/.*",
     "Library/.*",
-    ".rustup/.*",
-    "Movies/",
-    ".cargo/registry/",
+    "node%_modules/.*"
   }
 
   if ret == 0 then

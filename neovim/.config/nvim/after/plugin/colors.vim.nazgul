@@ -1,4 +1,4 @@
-" Custom color tweaks
+"Custom color tweaks
 
 function! s:setup_colors() abort
   hi! RedHover guifg=#cc241d ctermfg=124 gui=NONE cterm=NONE

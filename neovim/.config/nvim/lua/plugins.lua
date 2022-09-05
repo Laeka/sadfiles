@@ -75,10 +75,15 @@ packer.startup(function(use)
       }
     end,
   }
+  use "tpope/vim-eunuch" -- commands to work with dirvish
+  use "tpope/vim-abolish" --check words and changes
+  use {
+    "ziontee113/icon-picker.nvim",
+    cmd = "PickEverything",
+    config = function() require "icon-picker" end,
+  }
   --[[ use "windwp/nvim-ts-autotag"
-  use "tpope/vim-abolish" :CHECK
   use "tpope/vim-repeat" :CHECK
-  use "tpope/vim-eunuch" :CHECK
   use "editorconfig/editorconfig-vim" :CHECK
   use { "mogelbrod/vim-jsonpath", cmd = "JsonPath" } :CHECK
   use {
@@ -86,18 +91,12 @@ packer.startup(function(use)
   } 
   use "moll/vim-node" : nodejs helper :CHECK
   ]]
-  --[[ 
-  use {
-    "ziontee113/icon-picker.nvim", :CHECK
-    cmd = "PickEverything",
-    config = function() require "icon-picker" end,
-  } ]]
 
   -- Movement
   use { "chaoren/vim-wordmotion", "justinmk/vim-sneak" } -- workmotion: camelcase nav, sneak: find two letters
 
   -- Quickfix
-  use "kevinhwang91/nvim-bqf" --:Check maybe can work with telescope
+  --use "kevinhwang91/nvim-bqf" --:Check maybe can work with telescope
   --[[ use { 'Olical/vim-enmasse', cmd = 'EnMasse' } -- check warns and errors for js =need jshint ]]
 
   -- Indentation tracking
@@ -133,7 +132,7 @@ packer.startup(function(use)
 
   -- Project Management/Sessions
   use {
-    "dhruvasagar/vim-prosession", --:CHECK create and switch between sessios
+    "dhruvasagar/vim-prosession", -- NOTE: need to learn about this
     after = "vim-obsession",
     requires = { { "tpope/vim-obsession", cmd = "Prosession" } },
     config = [[require('config.prosession')]],
@@ -148,13 +147,15 @@ packer.startup(function(use)
 
   --themes and colorschemas
   use "wbthomason/vim-nazgul" --theme
+  use "gruvbox-community/gruvbox"
+  use "folke/tokyonight.nvim"
   use {
     "norcalli/nvim-colorizer.lua",
     ft = { "css", "javascript", "vim", "html" },
     config = [[require('colorizer').setup {'css', 'javascript', 'vim', 'html'}]],
   } --see the colors in code
-  use { "Pocco81/HighStr.nvim", cmd = "HSHighlight" }
   --[[ use 'hardselius/warlock'
+  use "whatsthatsmell/codesmell_dark.vim"
   use 'arzg/vim-substrata'
   use 'sainnhe/gruvbox-material'
   use 'RRethy/nvim-base16' ]]
@@ -181,18 +182,17 @@ packer.startup(function(use)
 
   --snippets
   use { "L3MON4D3/LuaSnip", event = "InsertEnter" } --snippet
-  use "rafamadriz/friendly-snippets"
+  use { "rafamadriz/friendly-snippets", event = "InsertEnter" }
 
   --lsp::language helper
   use {
     "neovim/nvim-lspconfig",
     { "nvim-lua/lsp-status.nvim", disable = true },
-    "folke/trouble.nvim", --:TODO maybe conf, need keymaps -- list of warns errors info
+    "folke/trouble.nvim", -- TODO: maybe conf, need keymaps -- list of warns errors info
     "ray-x/lsp_signature.nvim",
   }
   use "williamboman/mason.nvim" -- help you to install others lsp servers
   use "williamboman/mason-lspconfig.nvim"
-  use "https://git.sr.ht/~whynothugo/lsp_lines.nvim" --lines show warns error info
   use "rrethy/vim-illuminate" --illuminate all same words
   use { "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } } --formating helper
   --[[ use "glepnir/lspsaga.nvim" -- LSP UIs

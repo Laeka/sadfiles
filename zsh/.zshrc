@@ -140,7 +140,7 @@ export EDITOR=vim
   alias ghweb='gh repo view --web'
   alias gu='gitui'
   alias ng='npm init -y && git init && echo "node_modules" >> .gitignore'
-#alias to manage .dotfiles :TODO need better way to do this maybe zsh functions
+#alias to manage .dotfiles TODO: need better way to do this maybe zsh functions
   alias kittyrm="rm -rf ~/.dotfiles/kitty/.config/kitty/"
   alias kittycp="cp -r ~/.config/kitty/ ~/.dotfiles/kitty/.config/kitty/"
   alias neofetchrm="rm -rf ~/.dotfiles/neofetch/.config/neofetch/"
@@ -164,3 +164,7 @@ export PATH=~/.npm-global/bin:$PATH
 #startup
 neofetch
 source /home/laekagg/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

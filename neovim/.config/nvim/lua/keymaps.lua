@@ -81,9 +81,7 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 keymap("n", "<leader>n", ":NvimTreeToggle<cr>", opts)
 
 -- Custom
-keymap("n", "<F4>", "<cmd>Telescope resume<cr>", opts)
-keymap("n", "<F5>", "<cmd>Telescope commands<CR>", opts)
-keymap("n", "<leader>/", ":execute 'Telescope live_grep default_text=' . expand('<cword>')<CR>", opts)
+
 -- toggle bool word - true/false
 keymap(
   "n",
