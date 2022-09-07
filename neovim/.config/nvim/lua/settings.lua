@@ -1,14 +1,23 @@
-vim.g.loaded_matchparen = 1
+local g = vim.g
+g.loaded_matchparen = 1
+-- Better Netrw
+g.netrw_banner = 1 -- Hide banner
+g.netrw_browse_split = 3 -- Open in previous window
+g.netrw_altv = 1 -- Open with right splitting
+g.netrw_liststyle = 3 -- Tree-style view
+g.netrw_list_hide = (vim.fn["netrw_gitignore#Hide"]()) .. [[,\(^\|\s\s\)\zs\.\S\+]] -- use .gitignore
+g.netrw_winsize = 25
+
 --options
 local options = {
   fileencoding = "utf-8", -- the encoding written to a file
   title = true, -- title of the window
   smartindent = true, -- make indenting smarter again
-  hlsearch = true, -- highlight all matches on previous search pattern
+  hlsearch = false, -- highlight all matches on previous search pattern
   backup = false, --create a backup file
   cmdheight = 2, --more space in the neovim command for display messages
   expandtab = true, --convert tabs to spaces
-  scrolloff = 10, --number to show below the cursor :Check need to test
+  scrolloff = 8, --number to show below the cursor :Check need to test
   ignorecase = true, -- Case insensitive searching UNLESS /C or capital in search
   breakindent = true, --:Check need test
   shiftwidth = 2, --the number of spaces inserted for each indentation
@@ -46,17 +55,15 @@ local options = {
   synmaxcol = 500, --
   display = "msgsep", --change the way text is displayed :: lastline - truncate - uhex - msgsep
   modeline = false, -- lines checked for set commands if is on
+  colorcolumn = "80",
 
   --Colorscheme
   termguicolors = true,
-  -- background = "light",
-
-  --indent blankline
-  --[[ list = true, ]]
 }
 
---[[ vim.opt.listchars:append "space:⋅" ]]
---[[ vim.opt.listchars:append "eol:↴" ]]
+for k, v in pairs(options) do
+  vim.opt[k] = v
+end
 
 local opt = vim.opt
 
@@ -66,37 +73,12 @@ opt.wildmode = "longest:full"
 opt.wildoptions = "pum"
 
 opt.belloff = "all" -- Just turn the dang bell off
-vim.opt.path:append { "**" } -- Finding files - Search down into subfolders
-vim.opt.wildignore:append { "*.o", "*~", "*/node_modules/*" }
-vim.opt.shortmess:append "c"
-vim.opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
+opt.path:append { "**" } -- Finding files - Search down into subfolders
+opt.wildignore:append { "*.o", "*~", "*/node_modules/*" }
+opt.shortmess:append "c"
+opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 opt.shada = { "!", "'1000", "<50", "s10", "h" }
-opt.formatoptions = opt.formatoptions
-  - "a" -- Auto formatting is BAD.
-  - "t" -- Don't auto format my code. I got linters for that.
-  + "c" -- In general, I like it when comments respect textwidth
-  + "q" -- Allow formatting comments w/ gq
-  - "o" -- O and o, don't continue comments
-  - "r" -- But do continue when pressing enter.
-  + "n" -- Indent past the formatlistpat, not underneath it.
-  + "j" -- Auto-remove comments if possible.
-  - "2" -- I'm not in gradeschool anymore
-
-for k, v in pairs(options) do
-  vim.opt[k] = v
-end
-
---[[ vim.cmd "autocmd BufEnter * set formatoptions-=cro"
-vim.cmd "autocmd BufEnter * setlocal formatoptions-=cro" ]]
 
 --vim scripts
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[autocmd FileType help,qf,fugitive,fugitiveblame,netrw nnoremap <buffer><silent> q :close<CR>]]
---[[ vim.cmd [[set iskeyword+=-]]
-
--- Undercurl:Check
---vim.cmd [[let &t_Cs = "\e[4:3m"]]
---vim.cmd [[let &t_Ce = "\e[4:0m"]]
-
---Things to need to check
---[[ vim.wo.number = true ]]

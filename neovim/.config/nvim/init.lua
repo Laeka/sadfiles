@@ -3,7 +3,6 @@
 require "impatient"
 
 local g = vim.g
-local cmd = vim.cmd
 -- Skip some remote provider loading
 g.loaded_python3_provider = 0
 g.loaded_node_provider = 0
@@ -21,16 +20,12 @@ local disabled_built_ins = {
   "tar",
   "zipPlugin",
   "zip",
-  "netrwPlugin",
+  --"netrwPlugin",
 }
 
-for i = 1, 10 do
+for i = 1, 9 do
   g["loaded_" .. disabled_built_ins[i]] = 1
 end
-
--- cmd [[colorscheme nazgul]]
---[[ cmd "set fillchars+=vert:│"
-cmd [[colorscheme codesmell_dark ]]
 
 -- Autocommands
 local autocmd = vim.api.nvim_create_autocmd

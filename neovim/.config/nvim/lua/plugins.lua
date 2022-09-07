@@ -52,12 +52,11 @@ packer.startup(function(use)
   use "kyazdani42/nvim-web-devicons" -- File icons
   use "moll/vim-bbye"
   use "akinsho/toggleterm.nvim" -- open terminal
-  use { "dstein64/vim-startuptime", cmd = "StartupTime", config = [[vim.g.startuptime_tries = 10]] } --info about the startuptime
+  use { "dstein64/vim-startuptime", cmd = "StartupTime", config = [[vim.g.startuptime_tries = 10]] }
   use "mhinz/vim-sayonara" --commands to help with closing the buffer
   use { "tversteeg/registers.nvim", keys = { { "n", '"' }, { "i", "<c-r>" } } } --registers popup minimalist
   use "romainl/vim-cool" --desactive highlight search when stop searching
   use "wellle/targets.vim" --manage text objects
-  use "justinmk/vim-dirvish" -- simple path nav
   use "b0o/incline.nvim" --floating statusline for windows
   use {
     "AckslD/nvim-neoclip.lua", -- clipboard toggle
@@ -67,37 +66,18 @@ packer.startup(function(use)
   use {
     "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require("todo-comments").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end,
+    config = function() require("todo-comments").setup {} end,
   }
-  use "tpope/vim-eunuch" -- commands to work with dirvish
   use "tpope/vim-abolish" --check words and changes
   use {
     "ziontee113/icon-picker.nvim",
     cmd = "PickEverything",
     config = function() require "icon-picker" end,
   }
-  --[[ use "windwp/nvim-ts-autotag"
-  use "tpope/vim-repeat" :CHECK
-  use "editorconfig/editorconfig-vim" :CHECK
-  use { "mogelbrod/vim-jsonpath", cmd = "JsonPath" } :CHECK
-  use {
-    "luukvbaal/stabilize.nvim",
-  } 
-  use "moll/vim-node" : nodejs helper :CHECK
-  ]]
+  use "moll/vim-node"
 
   -- Movement
   use { "chaoren/vim-wordmotion", "justinmk/vim-sneak" } -- workmotion: camelcase nav, sneak: find two letters
-
-  -- Quickfix
-  --use "kevinhwang91/nvim-bqf" --:Check maybe can work with telescope
-  --[[ use { 'Olical/vim-enmasse', cmd = 'EnMasse' } -- check warns and errors for js =need jshint ]]
 
   -- Indentation tracking
   use {
@@ -130,14 +110,6 @@ packer.startup(function(use)
     config = function() require("Comment").setup {} end,
   }
 
-  -- Project Management/Sessions
-  use {
-    "dhruvasagar/vim-prosession", -- NOTE: need to learn about this
-    after = "vim-obsession",
-    requires = { { "tpope/vim-obsession", cmd = "Prosession" } },
-    config = [[require('config.prosession')]],
-  }
-
   -- Undo tree
   use {
     "mbbill/undotree", --nav and view past undos
@@ -153,15 +125,9 @@ packer.startup(function(use)
     "norcalli/nvim-colorizer.lua",
     ft = { "css", "javascript", "vim", "html" },
     config = [[require('colorizer').setup {'css', 'javascript', 'vim', 'html'}]],
-  } --see the colors in code
-  --[[ use 'hardselius/warlock'
-  use "whatsthatsmell/codesmell_dark.vim"
-  use 'arzg/vim-substrata'
-  use 'sainnhe/gruvbox-material'
-  use 'RRethy/nvim-base16' ]]
-
+  }
   --cmp plug::autocomplete language
-  use "onsails/lspkind-nvim" -- vscode-like pictograms
+  use "onsails/lspkind-nvim"
   use {
     "hrsh7th/nvim-cmp",
     requires = {
@@ -173,7 +139,6 @@ packer.startup(function(use)
       { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
       { "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" },
       { "onsails/lspkind-nvim", after = "nvim-cmp" },
-      --'lukas-reineke/cmp-under-comparator',
     },
     config = [[require('config.cmp')]],
     event = "InsertEnter",
@@ -181,7 +146,7 @@ packer.startup(function(use)
   }
 
   --snippets
-  use { "L3MON4D3/LuaSnip", event = "InsertEnter" } --snippet
+  use { "L3MON4D3/LuaSnip", event = "InsertEnter" }
   use { "rafamadriz/friendly-snippets", event = "InsertEnter" }
 
   --lsp::language helper
@@ -194,12 +159,7 @@ packer.startup(function(use)
   use "williamboman/mason.nvim" -- help you to install others lsp servers
   use "williamboman/mason-lspconfig.nvim"
   use "rrethy/vim-illuminate" --illuminate all same words
-  use { "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } } --formating helper
-  --[[ use "glepnir/lspsaga.nvim" -- LSP UIs
-  use "SmiteshP/nvim-navic" -- show bard like breackcumbs
-  use "lvimuser/lsp-inlayhints.nvim" --lines the same word
-  use "b0o/SchemaStore.nvim" -- schemas for json ]]
-
+  use { "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } }
   --telescope
   use {
     {
@@ -252,9 +212,6 @@ packer.startup(function(use)
     },
     run = ":TSUpdate",
   }
-  --[[ use "nvim-treesitter/nvim-treesitter-context" --treesiter context languages
-  use "drybalka/tree-climber.nvim" --tree siter navigation easy ]]
-
   --git
   use {
     {
@@ -263,7 +220,7 @@ packer.startup(function(use)
       config = [[require('config.gitsigns')]],
       event = "User ActuallyEditing",
     },
-    { "TimUntersberger/neogit", cmd = "Neogit", config = [[require('config.neogit')]] }, --:Check keymaps and conf - git terminal
+    { "TimUntersberger/neogit", cmd = "Neogit", config = [[require('config.neogit')]] },
   }
 
   -- Buffer management
@@ -279,35 +236,6 @@ packer.startup(function(use)
     "lewis6991/spellsitter.nvim",
     config = function() require("spellsitter").setup() end,
   }
-
-  -- Debugger
-  --use {
-  --{
-  --'mfussenegger/nvim-dap',
-  -- setup = [[require('config.dap_setup')]],
-  -- config = [[require('config.dap')]],
-  -- requires = 'jbyuki/one-small-step-for-vimkind',
-  -- wants = 'one-small-step-for-vimkind',
-  -- cmd = { 'BreakpointToggle', 'Debug', 'DapREPL' },
-  -- },
-  -- {
-  --  'rcarriga/nvim-dap-ui',
-  --  requires = 'nvim-dap',
-  -- wants = 'nvim-dap',
-  --  after = 'nvim-dap',
-  --  config = function()
-  --    require('dapui').setup()
-  --  end,
-  -- },
-  -- }
-
-  -- REPLs
-  --[[ use { ]]
-  --[[   "hkupty/iron.nvim",  --real time terminal to auto execute code ]]
-  --   setup = [[vim.g.iron_map_defaults = 0]],
-  --   config = [[require('config.iron')]],
-  --[[   cmd = { "IronRepl", "IronSend", "IronReplHere" }, ]]
-  --[[ } ]]
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

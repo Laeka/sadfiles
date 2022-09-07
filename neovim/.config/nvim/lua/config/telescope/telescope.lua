@@ -67,6 +67,7 @@ telescope.setup {
     },
     dynamic_preview_title = true,
     winblend = 4,
+    file_ignore_patterns = { "node_modules", ".git", ".dynamodb" },
   },
   extensions = {
     frecency = { workspaces = { exo = "/home/laekagg/PROG/" } },
@@ -86,18 +87,14 @@ telescope.setup {
     command_palette = {
       {
         "File",
-        { "Yank Current File Name", ":lua require('joel.funcs').yank_current_file_name()" },
-        { "Write Current Buffer", ":w" },
-        { "Write All Buffers", ":wa" },
-        { "Quit", ":qa" },
         { "File Browser", ":lua require'telescope'.extensions.file_browser.file_browser()", 1 },
         { "Search for Word", ":lua require('telescope.builtin').live_grep()", 1 },
-        { "Project Files", ":lua require'joel.telescope'.project_files()", 1 },
+        { "Project Files", ":lua require'config.telescope.telescope'.project_files()", 1 },
       },
       {
         "Git(Hub)",
-        { " Issues", "lua require'joel.telescope'.gh_issues()", 1 },
-        { " Pulls", "lua require'joel.telescope'.gh_prs()", 1 },
+        { " Issues", "lua require'config.telescope.telescope'.gh_issues()", 1 },
+        { " Pulls", "lua require'config.telescope.telescope'.gh_prs()", 1 },
         { " Status", "lua require'telescope.builtin'.git_status()", 1 },
         { " Diff Split Vertical", ":Gvdiffsplit!", 1 },
         { " Log", "lua require'telescope.builtin'.git_commits()", 1 },
@@ -108,36 +105,25 @@ telescope.setup {
         },
       },
       {
-        "Terminal",
-        { "Vertical Right", ":vsp | terminal", 1 },
-      },
-      {
         "Notes",
-        { "Browse Notes", "lua require'joel.telescope'.browse_notes()", 1 },
-        { "Find Notes", "lua require'joel.telescope'.find_notes()", 1 },
-        { "Search/Grep Notes", "lua require'joel.telescope'.grep_notes()", 1 },
-      },
-      {
-        "Toggle",
-        { "cursor line", ":set cursorline!" },
-        { "cursor column", ":set cursorcolumn!" },
-        { "spell checker", ":set spell!" },
-        { "relative number", ":set relativenumber!" },
-        { "search highlighting", ":set hlsearch!" },
-        { "Colorizer", ":ColorToggle" },
-        { "Fold Column", ":lua require'joel.settings'.toggle_fold_col()" },
+        { "Browse Notes", "lua require'config.telescope.telescope'.browse_notes()", 1 },
+        { "Find Notes", "lua require'config.telescope.telescope'.find_notes()", 1 },
+        { "Search/Grep Notes", "lua require'config.telescope.telescope'.grep_notes()", 1 },
       },
       {
         "Neovim",
-        { "checkhealth", ":checkhealth" },
         { "commands", ":lua require('telescope.builtin').commands()" },
         { "command history", ":lua require('telescope.builtin').command_history()" },
         { "registers", ":lua require('telescope.builtin').registers()" },
         { "options", ":lua require('telescope.builtin').vim_options()" },
         { "keymaps", ":lua require('telescope.builtin').keymaps()" },
         { "buffers", ":Telescope buffers" },
+        {
+          "Terminal",
+          { "Vertical Right", ":vsp | terminal", 1 },
+        },
         { "search history", ":lua require('telescope.builtin').search_history()" },
-        { "Search TODOS", ":lua require'joel.telescope'.search_todos()" },
+        { "Search TODOS", ":lua require'config.telescope.telescope'.search_todos()" },
       },
     },
   },
@@ -231,7 +217,8 @@ M.project_files = function()
     ".git/",
     "Dropbox/.*",
     "Library/.*",
-    "node%_modules/.*"
+    "node%_modules/.*",
+    ".dynamodb",
   }
 
   if ret == 0 then
