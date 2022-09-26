@@ -9,7 +9,7 @@ end
 
 -- format Lua files pre-write
 vim.api.nvim_create_augroup("StyluaAuto", {})
-vim.api.nvim_create_autocmd(
+--[[ vim.api.nvim_create_autocmd(
   "BufWritePre",
   { command = "lua require('stylua').format()", group = "StyluaAuto", pattern = "*.lua" }
-)
+) ]]

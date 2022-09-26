@@ -1,5 +1,5 @@
 require("notify").setup {
-  timeout = 9000,
+  timeout = 5000,
   stages = "fade",
   icons = {
     ERROR = "",

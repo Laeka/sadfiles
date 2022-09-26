@@ -74,9 +74,14 @@ nmap("<leader>ts", [[<Cmd>11sp <bar>terminal<CR>]])
 --keymap("n", "<space>lg", [[<Cmd>135vsp <bar>terminal lazygit<CR>]], { noremap = true, silent = true })
 -- yank all in buffer
 nmap("<leader>a", ":%y<cr>")
--- v split create cursor file
-nnoremap("<leader>vs", ":vs <cfile><CR>")
 -- netrw toogle
 nnoremap("<leader>trw", ":Ex<CR>")
 --Undo tree show
 nnoremap("<leader>ut", ":UndotreeToggle<CR>")
+nmap(",bd", ":%bd|e#|bd#<CR>")
+
+-- greatest remap ever
+nnoremap("<leader>vd", "\"_d")
+vnoremap("<leader>vd", "\"_d")
+
+vnoremap("<leader>vd", "\"_d")

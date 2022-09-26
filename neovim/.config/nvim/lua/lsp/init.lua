@@ -24,7 +24,4 @@ require "lsp.lsp-signature"
 --require("lsp-inlayhints")
 require "lsp.null-ls"
 
-local trouble = require "trouble"
-trouble.setup()
-
 return M

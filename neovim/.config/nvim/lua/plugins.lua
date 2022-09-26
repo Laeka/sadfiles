@@ -50,14 +50,11 @@ packer.startup(function(use)
   use "christianchiarulli/lua-dev.nvim"
   use "windwp/nvim-autopairs" --close autopairs
   use "kyazdani42/nvim-web-devicons" -- File icons
-  use "moll/vim-bbye"
-  use "akinsho/toggleterm.nvim" -- open terminal
   use { "dstein64/vim-startuptime", cmd = "StartupTime", config = [[vim.g.startuptime_tries = 10]] }
   use "mhinz/vim-sayonara" --commands to help with closing the buffer
   use { "tversteeg/registers.nvim", keys = { { "n", '"' }, { "i", "<c-r>" } } } --registers popup minimalist
   use "romainl/vim-cool" --desactive highlight search when stop searching
   use "wellle/targets.vim" --manage text objects
-  use "b0o/incline.nvim" --floating statusline for windows
   use {
     "AckslD/nvim-neoclip.lua", -- clipboard toggle
     config = function() require("neoclip").setup() end,
@@ -69,11 +66,6 @@ packer.startup(function(use)
     config = function() require("todo-comments").setup {} end,
   }
   use "tpope/vim-abolish" --check words and changes
-  use {
-    "ziontee113/icon-picker.nvim",
-    cmd = "PickEverything",
-    config = function() require "icon-picker" end,
-  }
   use "moll/vim-node"
 
   -- Movement
@@ -127,7 +119,6 @@ packer.startup(function(use)
     config = [[require('colorizer').setup {'css', 'javascript', 'vim', 'html'}]],
   }
   --cmp plug::autocomplete language
-  use "onsails/lspkind-nvim"
   use {
     "hrsh7th/nvim-cmp",
     requires = {
@@ -138,22 +129,19 @@ packer.startup(function(use)
       { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
       { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
       { "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" },
-      { "onsails/lspkind-nvim", after = "nvim-cmp" },
     },
     config = [[require('config.cmp')]],
     event = "InsertEnter",
     after = "LuaSnip",
   }
+  use "onsails/lspkind-nvim"
 
   --snippets
   use { "L3MON4D3/LuaSnip", event = "InsertEnter" }
-  use { "rafamadriz/friendly-snippets", event = "InsertEnter" }
 
   --lsp::language helper
   use {
     "neovim/nvim-lspconfig",
-    { "nvim-lua/lsp-status.nvim", disable = true },
-    "folke/trouble.nvim", -- TODO: maybe conf, need keymaps -- list of warns errors info
     "ray-x/lsp_signature.nvim",
   }
   use "williamboman/mason.nvim" -- help you to install others lsp servers
@@ -203,12 +191,8 @@ packer.startup(function(use)
     "nvim-treesitter/nvim-treesitter",
     requires = {
       "nvim-treesitter/nvim-treesitter-refactor", --refactor same words
-      "RRethy/nvim-treesitter-textsubjects", --visual mode take subjects
       "p00f/nvim-ts-rainbow", --parentesis rainbow
-      "joosepAlviste/nvim-ts-context-commentstring", --treesiter comment
-      "RRethy/nvim-treesitter-endwise", --put end
-      "nvim-treesitter/playground",
-      "dhruvmanila/telescope-bookmarks.nvim", -- search edge
+      "joosepAlviste/nvim-ts-context-commentstring"
     },
     run = ":TSUpdate",
   }
@@ -229,12 +213,6 @@ packer.startup(function(use)
     requires = "kyazdani42/nvim-web-devicons",
     config = [[require('config.bufferline')]],
     event = "User ActuallyEditing",
-  }
-
-  -- sitting
-  use {
-    "lewis6991/spellsitter.nvim",
-    config = function() require("spellsitter").setup() end,
   }
 
   -- Automatically set up your configuration after cloning packer.nvim
