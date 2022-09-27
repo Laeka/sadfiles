@@ -1,88 +1,24 @@
--- TODO: crear search para check, fix, hack, note, warning
--- FIX: comandos de la parte de abajo
--- NOTE: probar los comandos git en una carpeta con git iniciado
-local map = vim.api.nvim_set_keymap
-local silent = { silent = true, noremap = true }
+local Remap = require "keymap-setup"
+local nnoremap = Remap.nnoremap
+
 -- Navigate buffers and repos
---map("n", "<c-p>", [[<cmd>Telescope buffers show_all_buffers=true theme=get_dropdown<cr>]], silent)
-map("n", "<c-p>", [[<cmd>Telescope commands theme=get_dropdown<cr>]], silent)
-map("n", "<c-a>", [[<cmd>Telescope buffers show_all_buffers=true theme=get_dropdown<cr>]], silent)
-map("n", "<c-e>", [[<cmd>Telescope frecency theme=get_dropdown<cr>]], silent)
-map("n", "<c-s>", [[<cmd>Telescope git_files theme=get_dropdown<cr>]], silent)
-map("n", "<c-d>", [[<cmd>Telescope find_files theme=get_dropdown<cr>]], silent)
-map("n", "<c-g>", [[<cmd>Telescope live_grep theme=get_dropdown<cr>]], silent)
+nnoremap("<c-p>", [[<cmd>Telescope commands theme=get_dropdown<cr>]])
+nnoremap("<c-a>", [[<cmd>Telescope buffers show_all_buffers=true theme=get_dropdown<cr>]])
+nnoremap("<c-e>", [[<cmd>Telescope frecency theme=get_dropdown<cr>]])
+nnoremap("<c-s>", [[<cmd>Telescope git_files theme=get_dropdown<cr>]])
+nnoremap("<c-d>", [[<cmd>Telescope find_files theme=get_dropdown<cr>]])
+nnoremap("<c-g>", [[<cmd>Telescope live_grep theme=get_dropdown<cr>]])
 -- command palette
-map("n", "<space>k", [[<Cmd>:Telescope command_palette<CR>]], silent)
-
--- Search through your Neovim related todos
-map("n", "<leader>st", [[<Cmd>lua require'config.telescope.telescope'.search_todos()<CR>]], silent)
-
--- search Brave bookmarks & go
-map("n", "<space>b", [[<Cmd>lua require('telescope').extensions.bookmarks.bookmarks()<CR>]], silent)
-
--- telescope-repo
-map("n", "<leader>rl", [[<Cmd>lua require'config.telescope.telescope'.repo_list()<CR>]], silent)
+nnoremap("<space>k", [[<Cmd>:Telescope command_palette<CR>]])
 
 -- telescope notify history
-map(
-  "n",
+nnoremap(
   "<leader>nh",
-  [[<Cmd>lua require('telescope').extensions.notify.notify({results_title='Notification History', prompt_title='Search Messages'})<CR>]],
-  silent
+  [[<Cmd>lua require('telescope').extensions.notify.notify({results_title='Notification History', prompt_title='Search Messages'})<CR>]]
 )
-
--- Telescope resume (last picker)
-map("n", "<leader>tr", [[<Cmd>lua require'telescope.builtin'.resume()<CR>]], silent)
-
--- git telescope goodness
-
--- git_bcommits - file scoped commits with diff preview. <C-V> for vsp diff to parent
-map(
-  "n",
-  "<space>gc",
-  [[<Cmd>lua require'telescope.builtin'.git_bcommits({prompt_title = '  ', results_title='Git File Commits'})<CR>]],
-  silent
-)
-
--- git_commits (log) git log
-map("n", "gl", [[<Cmd>lua require'telescope.builtin'.git_commits()<CR>]], silent)
--- git_status - <tab> to toggle staging
-map("n", "gs", [[<Cmd>lua require'telescope.builtin'.git_status()<CR>]], silent)
-
--- registers picker
---map("n", "<space>r", [[<Cmd>lua require'telescope.builtin'.registers()<CR>]], silent)
 
 -- show Workspace Diagnostics
-map("n", ",d", [[<Cmd>lua require'telescope.builtin'.diagnostics()<CR>]], silent)
-
-map("n", ",k", [[<Cmd>lua require'telescope.builtin'.keymaps({results_title='Key Maps Results'})<CR>]], silent)
-
-map("n", ",h", [[<Cmd>lua require'telescope.builtin'.help_tags({results_title='Help Results'})<CR>]], silent)
-
--- find files with gitfiles & fallback on find_files
-map("n", ",<space>", [[<Cmd>lua require'config.telescope.telescope'.project_files()<CR>]], silent)
--- browse, explore and create notes
-map("n", ",n", [[<Cmd>lua require'config.telescope.telescope'.browse_notes()<CR>]], silent)
--- Explore files starting at $HOME
-map("n", ",e", [[<Cmd>lua require'config.telescope.telescope'.file_explorer()<CR>]], silent)
--- Browse files from cwd - File Browser
-map("n", ",fb", [[<Cmd>lua require'telescope'.extensions.file_browser.file_browser()<CR>]], silent)
-
--- find notes
-map("n", "<leader>n", [[<Cmd>lua require'config.telescope.telescope'.find_notes()<CR>]], silent)
--- search notes
-map("n", ";n", [[<Cmd>lua require'config.telescope.telescope'.grep_notes()<CR>]], silent)
--- Find files in config dirs
-map("n", "<space>e", [[<Cmd>lua require'config.telescope.telescope'.find_configs()<CR>]], silent)
--- greg for a string
-map("n", "<space>g", [[<Cmd>lua require'config.telescope.telescope'.grep_prompt()<CR>]], silent)
--- find or create neovim configs
-map("n", "<leader>nc", [[<Cmd>lua require'config.telescope.telescope'.nvim_config()<CR>]], silent)
-
--- Github issues
-map("n", "<leader>is", [[<Cmd>lua require'config.telescope.telescope'.gh_issues()<CR>]], silent)
--- github Pull Requests - PRs
-map("n", "<leader>pr", [[<Cmd>lua require'config.telescope.telescope'.gh_prs()<CR>]], silent)
+nnoremap(",d", [[<Cmd>lua require'telescope.builtin'.diagnostics()<CR>]])
 
 -- neoclip
-map("n", "<C-n>", [[<Cmd>lua require('telescope').extensions.neoclip.default()<CR>]], silent)
+nnoremap("<C-n>", [[<Cmd>lua require('telescope').extensions.neoclip.default()<CR>]])

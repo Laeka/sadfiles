@@ -38,6 +38,12 @@ local options = {
   belloff = "all",
   --Colorscheme
   termguicolors = true,
+
+  --Highlight line
+  cursorline = true,
+  winblend = 0,
+  pumblend = 5,
+  background = dark
 }
 
 for k, v in pairs(options) do

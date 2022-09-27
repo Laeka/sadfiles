@@ -80,26 +80,31 @@ telescope.setup {
     ["ui-select"] = {
       require("telescope.themes").get_dropdown(),
     },
-    bookmarks = {
-      selected_browser = "edge",
-      url_open_command = "open",
-    },
     command_palette = {
       {
         "File",
         { "File Browser", ":lua require'telescope'.extensions.file_browser.file_browser()", 1 },
         { "Search for Word", ":lua require('telescope.builtin').live_grep()", 1 },
-        { "Project Files", ":lua require'config.telescope.telescope'.project_files()", 1 },
+        {"File explorer", "lua require'config.telescope.telescope'.file_explorer()"},
+        {"Resume(last picker)","lua require'telescope.builtin'.resume()"},
+        {"Grep string", "lua require'config.telescope.telescope'.grep_prompt()"},
       },
+      {
+        "Folder",
+        {"Repo list", "lua require'config.telescope.telescope'.repo_list()"},
+        { "Project Files", ":lua require'config.telescope.telescope'.project_files()", 1 },
+        {"Find configs", "lua require'config.telescope.telescope'.find_configs()"},
+        {"Find/create nvim configs", "lua require'config.telescope.telescope'.nvim_config()"},
+      }
       {
         "Git(Hub)",
         { " Issues", "lua require'config.telescope.telescope'.gh_issues()", 1 },
         { " Pulls", "lua require'config.telescope.telescope'.gh_prs()", 1 },
         { " Status", "lua require'telescope.builtin'.git_status()", 1 },
         { " Diff Split Vertical", ":Gvdiffsplit!", 1 },
-        { " Log", "lua require'telescope.builtin'.git_commits()", 1 },
+        { " Git commits", "lua require'telescope.builtin'.git_commits()", 1 },
         {
-          " File History",
+          " File commits",
           ":lua require'telescope.builtin'.git_bcommits({prompt_title = '  ', results_title='Git File Commits'})",
           1,
         },
@@ -111,19 +116,19 @@ telescope.setup {
         { "Search/Grep Notes", "lua require'config.telescope.telescope'.grep_notes()", 1 },
       },
       {
-        "Neovim",
+        "TODO",
+        {"Search TODOS", ":lua require'config.telescope.telescope'.search_todos()"},
+      },
+      {
+        "Telescope",
         { "commands", ":lua require('telescope.builtin').commands()" },
         { "command history", ":lua require('telescope.builtin').command_history()" },
         { "registers", ":lua require('telescope.builtin').registers()" },
         { "options", ":lua require('telescope.builtin').vim_options()" },
         { "keymaps", ":lua require('telescope.builtin').keymaps()" },
+        {"help tags", "lua require'telescope.builtin'.help_tags({results_title='Help Results'})"},
         { "buffers", ":Telescope buffers" },
-        {
-          "Terminal",
-          { "Vertical Right", ":vsp | terminal", 1 },
-        },
         { "search history", ":lua require('telescope.builtin').search_history()" },
-        { "Search TODOS", ":lua require'config.telescope.telescope'.search_todos()" },
       },
     },
   },
@@ -141,7 +146,6 @@ telescope.load_extension "frecency"
 telescope.load_extension "fzf"
 telescope.load_extension "ui-select"
 telescope.load_extension "notify"
-telescope.load_extension "bookmarks"
 telescope.load_extension "file_browser"
 telescope.load_extension "command_palette"
 telescope.load_extension "repo"

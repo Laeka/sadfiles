@@ -45,7 +45,5 @@ autocmd("FileType", { group = misc_aucmds, pattern = "qf", command = "set nobufl
 
 require "plugins"
 require "settings"
-require "highlights"
 require "keymaps"
 require "lsp"
-require "globals"

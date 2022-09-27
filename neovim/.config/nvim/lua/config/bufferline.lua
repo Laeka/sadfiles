@@ -106,5 +106,7 @@ bufferline.setup {
   highlights = highlights,
 }
 
-local opts = { silent = true, nowait = true, noremap = true }
-map("n", "<leader>gb", "<cmd>BufferLinePick<cr>", opts)
+local Remap = require "keymap-setup"
+local nnoremap = Remap.nnoremap
+local opts = { silent = true, nowait = true}
+nnoremap("<leader>gb", "<cmd>BufferLinePick<cr>", opts)

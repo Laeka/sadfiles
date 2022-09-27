@@ -158,7 +158,6 @@ packer.startup(function(use)
         "telescope-frecency.nvim",
         "telescope-fzf-native.nvim",
         "nvim-telescope/telescope-ui-select.nvim",
-        "dhruvmanila/telescope-bookmarks.nvim",
         "nvim-telescope/telescope-github.nvim",
         "cljoly/telescope-repo.nvim",
         "nvim-telescope/telescope-file-browser.nvim",
