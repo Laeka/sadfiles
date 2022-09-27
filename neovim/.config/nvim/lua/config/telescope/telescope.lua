@@ -95,7 +95,7 @@ telescope.setup {
         { "Project Files", ":lua require'config.telescope.telescope'.project_files()", 1 },
         {"Find configs", "lua require'config.telescope.telescope'.find_configs()"},
         {"Find/create nvim configs", "lua require'config.telescope.telescope'.nvim_config()"},
-      }
+      },
       {
         "Git(Hub)",
         { " Issues", "lua require'config.telescope.telescope'.gh_issues()", 1 },

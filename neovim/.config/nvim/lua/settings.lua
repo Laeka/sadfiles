@@ -36,6 +36,7 @@ local options = {
   colorcolumn = "80",
   guicursor = "",
   belloff = "all",
+  hidden = true,
   --Colorscheme
   termguicolors = true,
 
@@ -43,7 +44,7 @@ local options = {
   cursorline = true,
   winblend = 0,
   pumblend = 5,
-  background = dark
+  background = "dark",
 }
 
 for k, v in pairs(options) do
