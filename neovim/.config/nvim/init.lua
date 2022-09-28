@@ -20,7 +20,7 @@ local disabled_built_ins = {
   "tar",
   "zipPlugin",
   "zip",
-  --"netrwPlugin",
+  "netrwPlugin",
 }
 
 for i = 1, 9 do

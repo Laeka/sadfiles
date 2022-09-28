@@ -65,8 +65,6 @@ packer.startup(function(use)
     requires = "nvim-lua/plenary.nvim",
     config = function() require("todo-comments").setup {} end,
   }
-  use "tpope/vim-abolish" --check words and changes
-  use "moll/vim-node"
 
   -- Movement
   use { "chaoren/vim-wordmotion", "justinmk/vim-sneak" } -- workmotion: camelcase nav, sneak: find two letters

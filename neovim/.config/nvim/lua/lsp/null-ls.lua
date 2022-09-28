@@ -10,6 +10,7 @@ null_ls.setup {
   debug = false,
   sources = {
     formatting.standardjs,
+    formatting.stylua
     --[[ formatting.prettier.with { extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }, ]]
     --[[ formatting.black.with({ extra_args = { "--fast" } }), ]]
     --[[ formatting.stylua, ]]

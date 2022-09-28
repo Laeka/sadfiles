@@ -1,3 +1,4 @@
+local M = {}
 function M.notify_current_datetime()
   local dt = vim.fn.strftime "%c"
   require "notify"("Current Date Time: " .. dt, "info", { title = "Date & Time" })
@@ -7,7 +8,6 @@ end
 function M.clear_notification_history()
   local choice = vim.fn.confirm("Clear Notification History?", "&Yes\n&No\n&Cancel")
   if choice == 1 then
-    R "notify"
     print "Notification History Cleared"
   else
     print "Notification History Remains"

@@ -54,8 +54,6 @@ vnoremap("p", '"_dP')
 
 -- Visual Block --
 -- Move text up and down
-xnoremap("J", ":move '>+1<CR>gv-gv")
-xnoremap("K", ":move '<-2<CR>gv-gv")
 xnoremap("<A-j>", ":move '>+1<CR>gv-gv")
 xnoremap("<A-k>", ":move '<-2<CR>gv-gv")
 
@@ -65,13 +63,6 @@ nnoremap("gtb", ":lua require('funcs').toggle_bool({word=vim.fn.expand('<cword>'
 -- clear nvim-notify notifications history
 nnoremap("<leader>cn", ":lua require('funcs').clear_notification_history()<CR>")
 nnoremap("<leader>ti", ":lua require('funcs').notify_current_datetime()<CR>")
-nnoremap("<leader>th", ":TSHighlightCapturesUnderCursor<CR>")
--- open new Neovim Terminal in vsplit or split
-nmap("<leader>tv", [[<Cmd>vsp <bar>terminal<CR>]])
--- open short terminal at the bottom of the buffer
-nmap("<leader>ts", [[<Cmd>11sp <bar>terminal<CR>]])
--- open lazygit in vert split - custom lazygit config uses ctrl-x as menu close
---keymap("n", "<space>lg", [[<Cmd>135vsp <bar>terminal lazygit<CR>]], { noremap = true, silent = true })
 -- yank all in buffer
 nmap("<leader>a", ":%y<cr>")
 -- netrw toogle

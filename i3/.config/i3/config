@@ -9,8 +9,11 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+#disable touchscreen
+exec --no-startup-id xinput disable 13
+
 #set xrandr monitor
-exec --no-startup-id xrandr --output eDP1 --off
+# exec --no-startup-id xrandr --output eDP1 --off
 # exec --no-startup-id xrandr --output HDMI1 --mode 1920x1080
 
 set $mod Mod4
