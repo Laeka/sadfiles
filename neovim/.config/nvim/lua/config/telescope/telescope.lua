@@ -152,6 +152,7 @@ telescope.load_extension "repo"
 telescope.load_extension "neoclip"
 telescope.load_extension "gh"
 
+local M = {}
 -- requires repo extension
 function M.repo_list()
   local opts = {}

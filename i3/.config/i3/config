@@ -10,7 +10,7 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 #disable touchscreen
-exec --no-startup-id xinput disable 13
+# exec --no-startup-id xinput disable 13
 
 #set xrandr monitor
 # exec --no-startup-id xrandr --output eDP1 --off
