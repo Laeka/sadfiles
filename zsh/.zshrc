@@ -164,9 +164,10 @@ eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 #npm globals
 export PATH=~/.npm-global/bin:$PATH
+
 #startup
-neofetch
 source /home/laekagg/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+neofetch
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
