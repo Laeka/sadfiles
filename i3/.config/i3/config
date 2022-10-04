@@ -9,6 +9,9 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+#autostart
+exec_always --no-startup-id ~/.config/i3/autostart.sh
+
 #disable touchscreen
 # exec --no-startup-id xinput disable 13
 
@@ -53,10 +56,7 @@ exec --no-startup-id nm-applet
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
-
-# set transparent
-exec --no-startup-id picom -CGb
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -198,6 +198,8 @@ bar {
   }
   status_command i3status
   tray_output primary
+  mode invisible
+  hidden_state hide
 }
 
 
