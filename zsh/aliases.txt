@@ -1,3 +1,4 @@
+alias v="nvim"
 alias zshrc="nvim ~/.zshrc"
 alias ezsh="exec zsh"
 alias cnv="cd ~/.config/nvim"
