@@ -5,5 +5,15 @@ killall picom
 while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
 picom --config ~/.config/picom/picom.conf --experimental-backends --vsync &
 
+
 ~/.config/polybar/launch.sh &
-feh --bg-fill ~/pics/bg/touka1.png &
+~/.fehbg &
+dunst &
+autotiling &
+
+#sxhkd
+sxhkd -c $HOME/.config/i3/sxhkd/sxhkdrc &
+
+# laptop monitor off is external monitor is connected
+#
+xrandr | grep 'HDMI1 connected' > /dev/null && xrandr --output eDP1 --off & 

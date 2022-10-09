@@ -1,0 +1,86 @@
+super + Escape
+  pkill -USR1 -x sxhkd
+
+# Rofi & dmnu
+
+super + d
+  rofi -show drun -show-icons -font "Noto Sans 14"
+
+super + r
+  $HOME/bin/alchanger.sh
+
+super + t
+  $HOME/bin/ricer.sh
+
+# Applications
+
+ctrl + alt + s
+  flameshot gui
+
+# Audio keybindings
+
+XF86AudioRaiseVolume
+  pactl set-sink-volume 44 +5%
+
+XF86AudioLowerVolume
+  pactl set-sink-volume 44 -5%
+
+XF86AudioMute
+  pactl set-sink-mute 44 toggle
+
+XF86AudioPlay
+  playerctl play-pause
+
+# movement
+
+super+{h,j,k,l}
+  i3-msg focus {left,down,up,right}
+
+super+shift+{h,j,k,l}
+  i3-msg move {left,down,up,right}
+
+super + {z,x}
+  i3-msg split {v,h}
+
+super + f
+  i3-msg fullscreen toggle
+
+super + shift + space
+  i3-msg floating toggle
+
+super + space
+  i3-msg focus mode_toggle
+
+super + a
+  i3-msg focus parent
+
+
+# workspaces
+
+super + shift + b
+  i3-msg move workspace to output next
+
+super + {1-9,0}
+  i3-msg workspace {1-9,10}
+
+super + shift+{1-9,0}
+  i3-msg move container to workspace number {1-9,10}
+
+super + Return
+  alacritty
+
+super + q
+  i3-msg kill
+
+super + shift + c
+  i3-msg reload
+
+super + shift + r
+  i3-msg restart
+
+super + ctrl + {h,j,k,l}
+  i3-msg resize {grow width 1 px or 1 ppt, shrink height 1 px or 1 ppt, grow height 1 px or 1 ppt, shrink width 1 px or 1 ppt}
+
+super + y
+  polybar-msg cmd toggle
+
