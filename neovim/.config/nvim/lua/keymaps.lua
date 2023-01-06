@@ -1,4 +1,4 @@
-local Remap = require "keymap-setup"
+local Remap = require("keymap-setup")
 local nnoremap = Remap.nnoremap
 local vnoremap = Remap.vnoremap
 local inoremap = Remap.inoremap
@@ -72,7 +72,10 @@ nnoremap("<leader>ut", ":UndotreeToggle<CR>")
 nmap(",bd", ":%bd|e#|bd#<CR>")
 
 -- greatest remap ever
-nnoremap("<leader>vd", "\"_d")
-vnoremap("<leader>vd", "\"_d")
+nnoremap("<leader>vd", '"_d')
+vnoremap("<leader>vd", '"_d')
 
-vnoremap("<leader>vd", "\"_d")
+vnoremap("<leader>vd", '"_d')
+
+-- BufferLinePick
+nnoremap("<leader>gb", "<cmd>BufferLinePick<cr>", { nowait = true })

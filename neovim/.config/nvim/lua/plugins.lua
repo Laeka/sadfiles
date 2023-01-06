@@ -49,14 +49,11 @@ packer.startup(function(use)
 	use("rcarriga/nvim-notify") --betters notifications
 	use("nvim-lua/plenary.nvim") -- Common utilities
 	use("nvim-lualine/lualine.nvim") -- Statusline
-	use("christianchiarulli/lua-dev.nvim")
 	use("windwp/nvim-autopairs") --close autopairs
 	use("kyazdani42/nvim-web-devicons") -- File icons
 	use({ "dstein64/vim-startuptime", cmd = "StartupTime", config = [[vim.g.startuptime_tries = 10]] })
 	use("mhinz/vim-sayonara") --commands to help with closing the buffer
-	use({ "tversteeg/registers.nvim", keys = { { "n", '"' }, { "i", "<c-r>" } } }) --registers popup minimalist
 	use("romainl/vim-cool") --desactive highlight search when stop searching
-	use("wellle/targets.vim") --manage text objects
 	use({
 		"AckslD/nvim-neoclip.lua", -- clipboard toggle
 		config = function()
@@ -64,13 +61,6 @@ packer.startup(function(use)
 		end,
 	})
 	use("stevearc/dressing.nvim") --pretty ui
-	use({
-		"folke/todo-comments.nvim",
-		requires = "nvim-lua/plenary.nvim",
-		config = function()
-			require("todo-comments").setup({})
-		end,
-	})
 
 	-- Movement
 	use({ "chaoren/vim-wordmotion", "justinmk/vim-sneak" }) -- workmotion: camelcase nav, sneak: find two letters
@@ -93,6 +83,7 @@ packer.startup(function(use)
 			})
 		end,
 	})
+
 	-- Wrapping/delimiters
 	use({
 		{ "machakann/vim-sandwich", event = "User ActuallyEditing" }, -- like surronding
@@ -105,6 +96,13 @@ packer.startup(function(use)
 		event = "User ActuallyEditing",
 		config = function()
 			require("Comment").setup({})
+		end,
+	})
+	use({
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup({})
 		end,
 	})
 
@@ -124,26 +122,25 @@ packer.startup(function(use)
 		ft = { "css", "javascript", "vim", "html" },
 		config = [[require('colorizer').setup {'css', 'javascript', 'vim', 'html'}]],
 	})
+
 	--cmp plug::autocomplete language
+	--snippets
+	use({ "L3MON4D3/LuaSnip" }, "rafamadriz/friendly-snippets")
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
-			{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
 			"hrsh7th/cmp-nvim-lsp",
+			"onsails/lspkind-nvim",
+			{ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
+			{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-path", after = "nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
-			{ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-			{ "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" },
 		},
 		config = [[require('config.cmp')]],
 		event = "InsertEnter",
 		after = "LuaSnip",
 	})
-	use("onsails/lspkind-nvim")
-
-	--snippets
-	use({ "L3MON4D3/LuaSnip", event = "InsertEnter" })
 
 	--lsp::language helper
 	use({
@@ -154,6 +151,7 @@ packer.startup(function(use)
 	use("williamboman/mason-lspconfig.nvim")
 	use("rrethy/vim-illuminate") --illuminate all same words
 	use({ "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } })
+
 	--telescope
 	use({
 		{

@@ -5,8 +5,8 @@
 
 configuration {
     font:				"JetBrainsMono Nerd Font 13";
-    show-icons:				true;
-    icon-theme:				"Arc-X-D";
+    /* show-icons:				true; */
+    /* icon-theme:				"Arc-X-D"; */
     display-drun:			"Apps";
     drun-display-format:		"{name}";
     scroll-method:			0;

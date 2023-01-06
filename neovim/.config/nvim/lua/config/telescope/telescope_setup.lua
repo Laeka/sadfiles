@@ -1,4 +1,4 @@
-local Remap = require "keymap-setup"
+local Remap = require("keymap-setup")
 local nnoremap = Remap.nnoremap
 
 -- Navigate buffers and repos
@@ -13,8 +13,8 @@ nnoremap("<space>k", [[<Cmd>:Telescope command_palette<CR>]])
 
 -- telescope notify history
 nnoremap(
-  "<leader>nh",
-  [[<Cmd>lua require('telescope').extensions.notify.notify({results_title='Notification History', prompt_title='Search Messages'})<CR>]]
+	"<leader>nh",
+	[[<Cmd>lua require('telescope').extensions.notify.notify({results_title='Notification History', prompt_title='Search Messages'})<CR>]]
 )
 
 -- show Workspace Diagnostics

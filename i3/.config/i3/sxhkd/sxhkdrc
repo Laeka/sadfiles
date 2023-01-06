@@ -4,7 +4,7 @@ super + Escape
 # Rofi & dmnu
 
 super + d
-  rofi -show drun -show-icons -font "Noto Sans 14"
+  rofi -show drun
 
 super + r
   $HOME/bin/alchanger.sh

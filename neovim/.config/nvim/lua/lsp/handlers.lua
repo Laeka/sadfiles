@@ -7,7 +7,7 @@ if not status_cmp_ok then
 	return
 end
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
-M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
+M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
 
 M.setup = function()
 	local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
@@ -54,13 +54,11 @@ M.setup = function()
 end
 
 local function lsp_highlight_document(client)
-	-- if client.server_capabilities.document_highlight then
 	local status_ok, illuminate = pcall(require, "illuminate")
 	if not status_ok then
 		return
 	end
 	illuminate.on_attach(client)
-	-- end
 end
 
 local buf_keymap = vim.api.nvim_buf_set_keymap
@@ -89,9 +87,11 @@ M.on_attach = function(client, bufnr)
 	if client.name == "sumneko_lua" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
+	if client.name == "clangd" then
+		client.server_capabilities.documentFormattingProvider = false
+	end
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
-	--if client.name == "tsserver" then require("lsp-inlayhints").on_attach(bufnr, client) end
 end
 
 return M

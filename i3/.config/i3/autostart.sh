@@ -5,6 +5,7 @@ killall picom
 while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
 picom --config ~/.config/picom/picom.conf --experimental-backends --vsync &
 
+xinput disable 19 &
 
 ~/.config/polybar/launch.sh &
 ~/.fehbg &

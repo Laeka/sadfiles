@@ -3,7 +3,7 @@ local opt = vim.opt
 g.loaded_matchparen = 1
 -- Better Netrw
 g.netrw_banner = 0 -- Hide banner
-g.netrw_browse_split = 0 -- Open in previous window
+g.netrw_browse_split = 0
 g.netrw_winsize = 25
 
 --options
@@ -52,5 +52,3 @@ opt.path:append({ "**" }) -- Finding files - Search down into subfolders
 opt.wildignore:append({ "*/node_modules/*" })
 opt.shortmess:append("c")
 opt.isfname:append("@-@")
-
---vim scripts
