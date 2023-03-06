@@ -10,5 +10,7 @@ null_ls.setup({
 	sources = {
 		formatting.standardjs,
 		formatting.stylua,
+		formatting.clang_format,
+		formatting.yapf,
 	},
 })

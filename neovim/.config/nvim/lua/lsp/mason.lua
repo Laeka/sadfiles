@@ -1,4 +1,4 @@
-local servers = { "jsonls", "sumneko_lua", "tsserver" }
+local servers = { "jsonls", "sumneko_lua", "tsserver", "clangd", "pyright" }
 
 local settings = {
 	ui = {
@@ -40,6 +40,16 @@ for _, server in pairs(servers) do
 
 	if server == "tsserver" then
 		local tsserver_opts = require("lsp.langsettings.tsserver")
+		opts = vim.tbl_deep_extend("force", tsserver_opts, opts)
+	end
+
+	if server == "clangd" then
+		local tsserver_opts = require("lsp.langsettings.clangd")
+		opts = vim.tbl_deep_extend("force", tsserver_opts, opts)
+	end
+
+	if server == "pyright" then
+		local tsserver_opts = require("lsp.langsettings.pyright")
 		opts = vim.tbl_deep_extend("force", tsserver_opts, opts)
 	end
 
