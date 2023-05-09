@@ -1,4 +1,4 @@
-local servers = { "jsonls", "sumneko_lua", "tsserver", "clangd", "pyright" }
+local servers = { "jsonls", "lua_ls", "tsserver", "clangd", "pyright" }
 
 local settings = {
 	ui = {
