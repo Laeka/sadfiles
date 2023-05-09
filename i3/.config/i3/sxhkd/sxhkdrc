@@ -31,6 +31,15 @@ XF86AudioMute
 XF86AudioPlay
   playerctl play-pause
 
+# Brillo
+# Brightness up
+XF86MonBrightnessUp
+  xbacklight -inc 5
+
+# And brightness down
+XF86MonBrightnessDown
+  xbacklight -dec 5
+
 # movement
 
 super+{h,j,k,l}
