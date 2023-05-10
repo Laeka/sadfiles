@@ -39,15 +39,17 @@ source $HOME/.config/zsh/aliases.zsh
 source $HOME/.config/zsh/functions.zsh
 
 #export paths
-export PATH="$PATH:/home/laekagg/.local/bin"
+export PATH="$PATH:~/.local/bin"
 
 #startup
 neofetch
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+# Set PATH, MANPATH, etc., for Homebrew.
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # fnm
-export PATH=/home/laekagg/.config/.fnm:$PATH
+export PATH=~/.config/.fnm:$PATH
 eval "`fnm env`"

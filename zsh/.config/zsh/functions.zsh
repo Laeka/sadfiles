@@ -10,7 +10,7 @@ upnvim() {
 
 notevim(){
   local note
-  note=$(fd . '/home/laekagg/notes' | fzf)
+  note=$(fd . ~/notes | fzf)
   if [[ -n $note ]] then
     nvim $note
   fi

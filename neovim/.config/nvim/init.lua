@@ -1,5 +1,5 @@
 -- https://github.com/lewis6991/impatient.nvim
--- :LuaCacheClear
+-- :LuaCache--[[ Clear ]]
 require("impatient")
 
 local g = vim.g

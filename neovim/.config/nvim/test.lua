@@ -1,1 +1,2 @@
 -- modify autopairs
+-- plugin stow ignore

@@ -1,0 +1,8 @@
+\.git
+\.gitignore
+
+/neovim/.config/nvim/plugin
+/.config/nvim/plugin
+
+/.config/zsh/.zcompdump.* *.
+/zsh/.config/zsh/.zcompdump.* *.

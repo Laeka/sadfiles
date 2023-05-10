@@ -1,8 +1,8 @@
-/home/laekagg
-/home/laekagg/PROG
-/home/laekagg/.config/i3
-/home/laekagg/.config
+~/
+~/PROG
+~/.config/i3
+~/.config
 /usr/bin
-/home/laekagg/.config/nvim/
-/home/laekagg/.config/rofi
-/home/laekagg/.aws
+~/.config/nvim/
+~/.config/rofi
+~/.aws
